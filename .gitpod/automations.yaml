@@ -1,0 +1,41 @@
+tasks:
+    build:
+        name: Build Application
+        command: |
+            mvn clean install
+        triggeredBy:
+            - manual
+    
+    test:
+        name: Run Tests
+        command: |
+            mvn test
+        triggeredBy:
+            - manual
+    
+    compile:
+        name: Compile Application
+        command: |
+            mvn compile
+        triggeredBy:
+            - manual
+    
+    clean:
+        name: Clean Build Artifacts
+        command: |
+            mvn clean
+        triggeredBy:
+            - manual
+
+services:
+    rest-api:
+        name: Pure Java REST API
+        description: REST API server running on port 8000
+        commands:
+            start: |
+                gitpod env port open 8000 --name "REST API" && mvn compile exec:java -Dexec.mainClass="com.consulner.app.Application"
+            ready: |
+                curl -f http://localhost:8000/api/hello -u admin:admin -o /dev/null -s -w "%{http_code}" | grep -q "200"
+        triggeredBy:
+            - postDevcontainerStart
+

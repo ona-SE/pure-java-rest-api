@@ -1,0 +1,35 @@
+{
+	"name": "Pure Java REST API",
+	"build": {
+		"context": ".",
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "11",
+			"installMaven": "false",
+			"installGradle": "false"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-maven",
+				"redhat.java",
+				"vscjava.vscode-java-debug",
+				"vscjava.vscode-java-test",
+				"vscjava.vscode-java-dependency",
+				"GabrielBB.vscode-lombok"
+			]
+		}
+	},
+	"forwardPorts": [8000],
+	"portsAttributes": {
+		"8000": {
+			"label": "REST API",
+			"onAutoForward": "notify"
+		}
+	},
+	"postCreateCommand": "mvn clean install"
+}
