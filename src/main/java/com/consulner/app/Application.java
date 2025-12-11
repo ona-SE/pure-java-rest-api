@@ -32,7 +32,7 @@ class Application {
                 Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
                 String noNameText = "Anonymous";
                 String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-                String respText = String.format("Hello %s!", name);
+                String respText = "Hello %s!".formatted(name);
                 exchange.sendResponseHeaders(200, respText.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
                 output.write(respText.getBytes());

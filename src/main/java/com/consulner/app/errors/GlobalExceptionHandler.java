@@ -32,16 +32,13 @@ public class GlobalExceptionHandler {
 
     private ErrorResponse getErrorResponse(Throwable throwable, HttpExchange exchange) throws IOException {
         ErrorResponseBuilder responseBuilder = ErrorResponse.builder();
-        if (throwable instanceof InvalidRequestException) {
-            InvalidRequestException exc = (InvalidRequestException) throwable;
+        if (throwable instanceof InvalidRequestException exc) {
             responseBuilder.message(exc.getMessage()).code(exc.getCode());
             exchange.sendResponseHeaders(400, 0);
-        } else if (throwable instanceof ResourceNotFoundException) {
-            ResourceNotFoundException exc = (ResourceNotFoundException) throwable;
+        } else if (throwable instanceof ResourceNotFoundException exc) {
             responseBuilder.message(exc.getMessage()).code(exc.getCode());
             exchange.sendResponseHeaders(404, 0);
-        } else if (throwable instanceof MethodNotAllowedException) {
-            MethodNotAllowedException exc = (MethodNotAllowedException) throwable;
+        } else if (throwable instanceof MethodNotAllowedException exc) {
             responseBuilder.message(exc.getMessage()).code(exc.getCode());
             exchange.sendResponseHeaders(405, 0);
         } else {
